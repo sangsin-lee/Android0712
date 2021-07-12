@@ -10,17 +10,18 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static com.example.project0712.R.id.RdoRabbit;
+import static com.example.project0712.R.id.RQ;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     TextView text1, text2;
-    CheckBox chkAgree;
+    Switch swAgree;
     RadioGroup rGroup1;
-    RadioButton rdoDog, rdoCat, rdoRabbit;
-    Button btnOK;
+    RadioButton roreao, rpi, rq;
+    Button btnf,btnc;
     ImageView imPet;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,48 +29,65 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle("애완동물 사진 보기");
 
-        text1 = findViewById(R.id.Text1);
-        chkAgree = findViewById(R.id.ChkAgree);
+        swAgree = findViewById(R.id.swkAgree);
         text2 = findViewById(R.id.Text2);
         rGroup1 = findViewById(R.id.Rgroup1);
-        rdoDog = findViewById(R.id.RdoDog);
-        rdoCat = findViewById(R.id.RdoCat);
-        rdoRabbit = findViewById(RdoRabbit);
-        btnOK = findViewById(R.id.BtnOK);
+        roreao = findViewById(R.id.Roreo);
+        rpi = findViewById(R.id.Rpi);
+        rq = findViewById(RQ);
+        btnf = findViewById(R.id.Btnf);
+        findViewById(R.id.Roreo).setOnClickListener(this);
+        findViewById(R.id.Rpi).setOnClickListener(this);
+        findViewById(R.id.RQ).setOnClickListener(this);
+        findViewById(R.id.Btnf).setOnClickListener(this);
+        btnc = findViewById(R.id.Btnc);
+        findViewById(R.id.Btnc).setOnClickListener(this);
         imPet = findViewById(R.id.ImPet);
-        chkAgree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        swAgree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (chkAgree.isChecked() == true){
+                if (swAgree.isChecked() == true){
                     text2.setVisibility(View.VISIBLE);
                     rGroup1.setVisibility(View.VISIBLE);
-                    btnOK.setVisibility(View.VISIBLE);
+                    btnf.setVisibility(View.VISIBLE);
+                    btnc.setVisibility(View.VISIBLE);
                     imPet.setVisibility(View.VISIBLE);
                 }else{
                     text2.setVisibility(View.INVISIBLE);
                     rGroup1.setVisibility(View.INVISIBLE);
-                    btnOK.setVisibility(View.INVISIBLE);
+                    btnf.setVisibility(View.INVISIBLE);
+                    btnc.setVisibility(View.INVISIBLE);
                     imPet.setVisibility(View.INVISIBLE);
                 }
             }
         });
-        btnOK.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                switch (rGroup1.getCheckedRadioButtonId()){
-                    case R.id.RdoDog:
-                        break;
-                    case R.id.RdoCat:
-                        imPet.setImageResource(R.drawable.cat);
-                        break;
-                    case RdoRabbit:
-                        imPet.setImageResource(R.drawable.rabbit);
-                        break;
-                    default:
-                        Toast.makeText(MainActivity.this, "동물 먼저 선택하세요.", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+
+
     }
 
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.Roreo:
+                imPet.setImageResource(R.drawable.oreo);
+                break;
+            case R.id.Rpi:
+                imPet.setImageResource(R.drawable.pie);
+                break;
+            case R.id.RQ:
+                imPet.setImageResource(R.drawable.q10);
+                break;
+            case R.id.Btnf:
+                finish();
+                break;
+            case R.id.Btnc:
+                swAgree.setChecked(false);
+                rGroup1.clearCheck();
+                imPet.setImageResource(0);
+                break;
+            default:
+                Toast.makeText(MainActivity.this, "동물 먼저 선택하세요.", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
